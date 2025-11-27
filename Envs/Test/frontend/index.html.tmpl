@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Option A: S3 + JSON Lambda API</title>
+</head>
+<body>
+  <h1>Option A: S3 static front-end</h1>
+
+  <button id="call-api">Call API</button>
+  <pre id="response"></pre>
+
+  <script>
+    const apiUrl = "${api_url}";
+
+    document.getElementById("call-api").addEventListener("click", async () => {
+      const res = await fetch(apiUrl + "/hello");
+      const text = await res.text();
+      document.getElementById("response").textContent = text;
+    });
+  </script>
+</body>
+</html>
