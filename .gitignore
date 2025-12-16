@@ -1,7 +1,6 @@
 #Local .terraform directories
 **/.terraform/*
-Envs/**/.terraform/
-Envs/**/providers/
+Envs/**/providers/registry.terraform.io/
 
 # Terraform
 *.tfstate
