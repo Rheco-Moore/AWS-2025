@@ -1,5 +1,5 @@
 #Local .terraform directories
-**/.terraform/*
+Envs/**/.terraform/*
 
 # Terraform
 *.tfstate
@@ -41,9 +41,3 @@ terraform.rc
 *.swo
 *~
 
-# Provider plugins
-.terraform.lock.hcl
-EOF
-
-#application
-.exe
