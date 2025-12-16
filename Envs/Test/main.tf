@@ -26,8 +26,14 @@ data "aws_ami" "ubuntu" {
     values = ["ebs"]
   }
 
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
   owners = ["099720109477"]
 }
+
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
@@ -53,7 +59,7 @@ resource "aws_security_group" "app_server" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]  # Restrict this in production!
+    cidr_blocks = [var.my_ip]  # SSH only from my IP
   }
   
   egress {
@@ -63,6 +69,39 @@ resource "aws_security_group" "app_server" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+resource "aws_security_group" "asr_gpu_sg" {
+  name_prefix = "asr-gpu-"
+  vpc_id      = module.vpc.vpc_id
+
+  # SSH from my IP ONLY
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = [var.my_ip]
+  }
+
+  # Optional: Jupyter / VS Code Server on 8888 (only from my IP)
+  # ingress {
+  #   from_port   = 8888
+  #   to_port     = 8888
+  #   protocol    = "tcp"
+  #   cidr_blocks = [var.my_ip]
+  # }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "asr-gpu-sg"
+  }
+}
+
 
 resource "aws_instance" "app_server" {
   ami           = data.aws_ami.ubuntu.id
@@ -74,6 +113,7 @@ resource "aws_instance" "app_server" {
     Name = var.instance_name
   }
 }
+
 
 
 # IAM role
@@ -114,6 +154,26 @@ resource "aws_iam_policy" "s3_access" {
       }
     ]
   })
+}
+
+resource "aws_instance" "asr_gpu" {
+  ami           = data.aws_ami.ubuntu.id
+  instance_type = var.asr_gpu_instance_type
+  subnet_id     = module.vpc.public_subnets[0]
+  key_name      = var.key_name
+
+  vpc_security_group_ids = [aws_security_group.asr_gpu_sg.id]
+
+  #  training bigger and faster root volume
+  root_block_device {
+    volume_size = 150      # GB
+    volume_type = "gp3"
+  }
+
+  tags = {
+    Name = "caribbean-voices-gpu"
+    Role = "asr-training"
+  }
 }
 
 

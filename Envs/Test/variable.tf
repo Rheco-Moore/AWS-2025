@@ -4,6 +4,12 @@ variable "instance_name" {
   default     = "aws-rm-terraform"
 }
 
+variable "asr_gpu_instance_type" {
+  description = "Instance type for ASR GPU box"
+  type        = string
+  default     = "t3.small"
+}
+
 variable "instance_type" {
   description = "The EC2 instance's type for PROD."
   type        = string
@@ -84,4 +90,16 @@ variable "frontend_bucket_name" {
   description = "Name for the frontend S3 bucket (will have random suffix appended)"
   type        = string
   default     = "my-web-frontend"
+}
+#SSH
+variable "my_ip" {
+  description = "IP SSH"
+  type        = string
+  default     = "65.48.132.231/32"
+}
+
+variable "key_name" {
+  description = "Key-Pair"
+  type        = string
+  default     = "ASR_TRAINING_SSH"
 }
