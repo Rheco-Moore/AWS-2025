@@ -9,6 +9,7 @@ Envs/**/providers/registry.terraform.io/
 .terraform.tfstate.lock.info
 
 # Ignore environment variables
+.env
 *.env
 *.tfvars
 *.tfvars.json
