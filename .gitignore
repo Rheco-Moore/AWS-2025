@@ -1,5 +1,6 @@
 #Local .terraform directories
 Envs/**/.terraform/*
+Envs/**/providers/
 
 # Terraform
 *.tfstate
@@ -40,4 +41,5 @@ terraform.rc
 *.swp
 *.swo
 *~
+
 
