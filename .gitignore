@@ -1,0 +1,49 @@
+#Local .terraform directories
+**/.terraform/*
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.tfstate.lock.info
+
+# Ignore environment variables
+*.env
+*.tfvars
+*.tfvars.json
+
+# Crash logs
+crash.log   
+crash_*.log
+
+# Local overrides
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Build artifacts
+*.zip
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Ignore CLI configuration files
+.terraformrc
+terraform.rc
+
+# Editor and IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Provider plugins
+.terraform.lock.hcl
+EOF
+
+#application
+.exe
