@@ -43,9 +43,6 @@ terraform.rc
 *.swo
 *~
 
-# Provider plugins
-.terraform.lock.hcl
-EOF
 
 #application
 .exe
