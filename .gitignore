@@ -44,4 +44,5 @@ terraform.rc
 *~
 
 #.ssh keys
+.ssh/
 *.pem
