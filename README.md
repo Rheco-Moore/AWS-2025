@@ -1,4 +1,4 @@
-A production-grade Terraform project implementing three isolated environments (Test, Development, Production) following GitFlow methodology for secure, controlled deployments.
+Implementing three isolated environments (Test, Development, Production) following GitFlow methodology for secure, controlled deployments.
 Resource Specifications
 Resource	Test	Development	Production
 Instance Type	t3.micro	t3.small	m5.large
